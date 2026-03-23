@@ -1,5 +1,12 @@
 # NexusFlow-X
 
+[![CI](https://github.com/srp5166/NexusFlow-X/actions/workflows/ci.yml/badge.svg)](https://github.com/srp5166/NexusFlow-X/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Python 3.11](https://img.shields.io/badge/Python-3.11-3776AB.svg?logo=python&logoColor=white)](https://python.org)
+[![Docker](https://img.shields.io/badge/Docker-Compose-2496ED.svg?logo=docker&logoColor=white)](docker-compose.yml)
+[![Kafka](https://img.shields.io/badge/Apache_Kafka-KRaft-231F20.svg?logo=apachekafka&logoColor=white)](https://kafka.apache.org)
+[![Spark](https://img.shields.io/badge/Apache_Spark-PySpark-E25A1C.svg?logo=apachespark&logoColor=white)](https://spark.apache.org)
+
 Local-first, Docker-based **streaming data platform**: synthetic events → **Kafka** → **Spark Structured Streaming** → **Parquet** (Bronze → Silver → Gold) → **DuckDB analytics** and **Streamlit dashboard**, with YAML-driven data quality enforcement and quarantine paths.
 
 ## Architecture
