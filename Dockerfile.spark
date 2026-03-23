@@ -1,0 +1,16 @@
+FROM spark:python3
+
+# Writable cache for Ivy (--packages) and pip; avoid /nonexistent when host injects HOME
+ENV HOME=/tmp
+ENV JAVA_TOOL_OPTIONS=-Duser.home=/tmp
+
+# Install Python packages required for NexusFlow-X
+RUN pip install --no-cache-dir \
+    kafka-python \
+    pyyaml
+
+# Set working directory
+WORKDIR /app
+
+# Default command
+CMD ["sleep", "infinity"]

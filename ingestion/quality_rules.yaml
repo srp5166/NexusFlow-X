@@ -1,0 +1,17 @@
+# Data Quality Rules for NexusFlow-X
+
+numeric_ranges:
+  distance:
+    min: 0
+    max: 10000
+  temperature:
+    min: -50
+    max: 150
+  amount:
+    min: 0
+    max: 1000000
+  duration:
+    min: 0
+    max: 86400
+
+# Add more rules as needed (e.g., categorical values, null checks)
