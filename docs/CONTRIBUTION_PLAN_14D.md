@@ -1,5 +1,7 @@
 # 14-day contribution plan (real work, not noise)
 
+**Extended plan (four weeks + backlog):** [STEADY_WORK_PLAN.md](STEADY_WORK_PLAN.md) — use that doc for day-by-day work; this file keeps the original 14-day snapshot below.
+
 Goal: **one meaningful commit per day** (docs, tests, small features, refactors). Keep changes small and reviewable.
 
 | Day | Focus | Concrete deliverable |
