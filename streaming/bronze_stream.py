@@ -64,11 +64,13 @@ KAFKA_BOOTSTRAP_SERVERS = os.getenv(
     "KAFKA_BOOTSTRAP_SERVERS",
     "kafka:9092" if IN_DOCKER else "127.0.0.1:29092",
 )
+KAFKA_TOPIC_EVENTS = "nexusflow-events"
 
 rules = load_quality_rules(str(quality_rules_path()))
 root = data_root()
 quarantine_path = str(root / "quarantine" / "bronze")
 bronze_path = str(root / "bronze")
+# Structured Streaming checkpoint (offsets + progress). Move/delete only when you want a new query run identity or replay strategy.
 checkpoint_path = str(root / "checkpoints" / "bronze")
 
 expected_fields = [
@@ -84,7 +86,7 @@ expected_fields = [
 df_raw = (
     spark.readStream.format("kafka")
     .option("kafka.bootstrap.servers", KAFKA_BOOTSTRAP_SERVERS)
-    .option("subscribe", "nexusflow-events")
+    .option("subscribe", KAFKA_TOPIC_EVENTS)
     .option("startingOffsets", "latest")
     .load()
 )
@@ -123,6 +125,14 @@ def process_batch(batch_df, batch_id):
         except Exception:
             pass
 
+
+logger.info(
+    "Bronze stream starting: kafka=%s topic=%s checkpoint=%s parquet_out=%s",
+    KAFKA_BOOTSTRAP_SERVERS,
+    KAFKA_TOPIC_EVENTS,
+    checkpoint_path,
+    bronze_path,
+)
 
 query = (
     df_parsed.writeStream.foreachBatch(process_batch)

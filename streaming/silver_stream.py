@@ -60,6 +60,7 @@ spark.sparkContext.setLogLevel("WARN")
 root = data_root()
 bronze_in = str(root / "bronze")
 silver_out = str(root / "silver")
+# Same checkpoint semantics as Bronze: holds streaming offsets for this query id.
 checkpoint_path = str(root / "checkpoints" / "silver")
 quarantine_path = str(root / "quarantine" / "silver")
 
@@ -124,6 +125,13 @@ df_bronze = (
     spark.readStream.format("parquet")
     .schema(bronze_schema)
     .load(bronze_in)
+)
+
+logger.info(
+    "Silver stream starting: bronze_in=%s checkpoint=%s parquet_out=%s",
+    bronze_in,
+    checkpoint_path,
+    silver_out,
 )
 
 query = (
